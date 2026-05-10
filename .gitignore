@@ -1,0 +1,11 @@
+# Output
+zig-out
+
+# Cache
+.zig-cache
+
+# Generated Files
+*.json
+
+# tree-sitter-wit
+tree-sitter-wit
