@@ -1,11 +1,11 @@
 const std = @import("std");
-const graphz = @import("graphz");
 const debug = std.debug;
 const assert = debug.assert;
 const mem = std.mem;
 const testing = std.testing;
 const ArrayList = std.array_list.Managed;
 
+const graphz = @import("graphz");
 const ts = @import("tree_sitter");
 
 pub const Node = graphz.Node(NodeData);

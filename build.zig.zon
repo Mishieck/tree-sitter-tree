@@ -1,6 +1,6 @@
 .{
     .name = .tree_sitter_tree,
-    .version = "0.1.0",
+    .version = "0.2.0",
     .fingerprint = 0x6041922b6f51e06c,
     .minimum_zig_version = "0.15.1",
     .dependencies = .{
