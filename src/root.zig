@@ -1,10 +1,10 @@
 const std = @import("std");
 const mem = std.mem;
 
-const ts = @import("tree_sitter");
+pub const tree_sitter = @import("tree_sitter");
 pub const grammar = @import("./grammar.zig");
 
-pub const LanguageFactory = fn () callconv(.c) *ts.Language;
+pub const LanguageFactory = fn () callconv(.c) *tree_sitter.Language;
 pub const node = @import("./node.zig");
 
 pub fn parse(
@@ -15,7 +15,7 @@ pub fn parse(
     const lang = getLanguage();
     defer lang.destroy();
 
-    const parser = ts.Parser.create();
+    const parser = tree_sitter.Parser.create();
     defer parser.destroy();
     try parser.setLanguage(lang);
 
