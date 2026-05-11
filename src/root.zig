@@ -2,10 +2,10 @@ const std = @import("std");
 const mem = std.mem;
 
 pub const tree_sitter = @import("tree_sitter");
-pub const grammar = @import("./grammar.zig");
+
+pub const node = @import("./node.zig");
 
 pub const LanguageFactory = fn () callconv(.c) *tree_sitter.Language;
-pub const node = @import("./node.zig");
 
 pub fn parse(
     arena: mem.Allocator,
