@@ -1,4 +1,7 @@
 const std = @import("std");
+const path = std.fs.path;
+
+pub const path_sep = &[1]u8{path.sep};
 
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
@@ -35,7 +38,7 @@ pub fn build(b: *std.Build) void {
     // > [!NOTE]
     // > Check if tree-sitter-wit repo exists before adding grammar. This avoids failure of the
     // > build process when the this build function is run in other projects.
-    if (fileExists("./tree-sitter-wit")) addGrammar(b, test_mod, ".", "wit");
+    if (fileExists("./tree-sitter-wit")) addGrammar(b, test_mod, ".", "", "wit");
 
     const mod_tests = b.addTest(.{ .root_module = mod });
     const run_mod_tests = b.addRunArtifact(mod_tests);
@@ -49,26 +52,29 @@ pub fn build(b: *std.Build) void {
 pub fn addGrammar(
     b: *std.Build,
     mod: *std.Build.Module,
-    comptime grammer_directory: []const u8,
+    comptime grammar_directory: []const u8,
+    comptime grammar_sub_directory: []const u8,
     comptime grammar: []const u8,
 ) void {
-    const source_directory = createSourceDirctory(grammer_directory, grammar);
+    const source_directory = createSourceDirctory(grammar_directory, grammar_sub_directory, grammar);
     mod.addCSourceFile(createCsourceFile(b, createSourceFilePath(source_directory, "parser")));
     mod.addCSourceFile(createCsourceFile(b, createSourceFilePath(source_directory, "scanner")));
 }
 
 pub inline fn createSourceDirctory(
-    comptime grammer_directory: []const u8,
+    comptime grammar_directory: []const u8,
+    comptime grammar_sub_directory: []const u8,
     comptime grammar: []const u8,
 ) []const u8 {
-    return grammer_directory ++ "/tree-sitter-" ++ grammar ++ "/src";
+    const sub_dir = path_sep ++ grammar_sub_directory;
+    return grammar_directory ++ path_sep ++ "tree-sitter-" ++ grammar ++ sub_dir ++ path_sep ++ "src";
 }
 
 pub inline fn createSourceFilePath(
     comptime source_directory: []const u8,
     comptime filename: []const u8,
 ) []const u8 {
-    return source_directory ++ "/" ++ filename ++ ".c";
+    return source_directory ++ path_sep ++ filename ++ ".c";
 }
 
 pub fn createCsourceFile(b: *std.Build, comptime file_path: []const u8) std.Build.Module.CSourceFile {
