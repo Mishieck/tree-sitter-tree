@@ -62,7 +62,8 @@ pub fn addGrammar(
         return;
     }
     mod.addCSourceFile(createCsourceFile(b, createSourceFilePath(source_directory, "parser")));
-    mod.addCSourceFile(createCsourceFile(b, createSourceFilePath(source_directory, "scanner")));
+    const scannar_file_path = createSourceFilePath(source_directory, "scanner");
+    if (fileExists(scannar_file_path)) mod.addCSourceFile(createCsourceFile(b, scannar_file_path));
 }
 
 pub inline fn createSourceDirctory(
