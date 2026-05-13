@@ -57,6 +57,10 @@ pub fn addGrammar(
     comptime grammar: []const u8,
 ) void {
     const source_directory = createSourceDirctory(grammar_directory, grammar_sub_directory, grammar);
+    if (!fileExists(source_directory)) {
+        std.debug.print("Missing grammar directory for '" ++ grammar ++ "'!\n", .{});
+        return;
+    }
     mod.addCSourceFile(createCsourceFile(b, createSourceFilePath(source_directory, "parser")));
     mod.addCSourceFile(createCsourceFile(b, createSourceFilePath(source_directory, "scanner")));
 }
