@@ -11,12 +11,12 @@ const tst = @import("tst");
 
 pub extern fn tree_sitter_wit() callconv(.c) *ts.Language;
 
-test "parse" {
+test "tree_witter_wit" {
     const source =
         \\package test:my-package;
         \\
         \\interface inter {
-        \\    type name = u8; 
+        \\    type name = u8;
         \\}
         \\
         \\worl my-world {
@@ -28,6 +28,6 @@ test "parse" {
     var arena = std.heap.ArenaAllocator.init(testing.allocator);
     defer arena.deinit();
     const tst_node = try tst.parse(arena.allocator(), tree_sitter_wit, source);
-    try testing.expectEqualStrings("source_file", tst_node.data.kind);
+    try testing.expectEqualStrings("source_file", tst_node.data().kind);
     debug.print("Done!\n", .{});
 }

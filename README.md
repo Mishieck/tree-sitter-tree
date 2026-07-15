@@ -10,3 +10,7 @@ A Zig library for converting tree-sitter trees to [Zig-native trees](https://git
   <dt>Mutability</dt>
   <dd>Tree-sitter trees are immutable. This library uses mutable trees.</dd>
 </dl>
+
+## Examples
+
+- [TreeSitter WIT](./examples/tree_sitter_wit.zig)

@@ -1,10 +1,9 @@
 const std = @import("std");
 const mem = std.mem;
 
-pub const tree_sitter = @import("tree_sitter");
+const tree_sitter = @import("tree_sitter");
 
 pub const node = @import("./node.zig");
-
 pub const LanguageFactory = fn () callconv(.c) *tree_sitter.Language;
 
 pub fn parse(
@@ -24,4 +23,8 @@ pub fn parse(
     const ts_node = tree.?.rootNode();
 
     return try node.init(arena, source, &ts_node, null);
+}
+
+test {
+    _ = node;
 }

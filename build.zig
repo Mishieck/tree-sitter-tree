@@ -12,8 +12,8 @@ pub fn build(b: *std.Build) void {
         .target = target,
     });
 
-    const test_mod = b.createModule(.{
-        .root_source_file = b.path("src/test.zig"),
+    const tree_sitter_wit = b.createModule(.{
+        .root_source_file = b.path("examples/tree_sitter_wit.zig"),
         .target = target,
     });
 
@@ -29,24 +29,25 @@ pub fn build(b: *std.Build) void {
 
     mod.addImport("graphz", graphz.module("graphz"));
     mod.addImport("tree_sitter", tree_sitter.module("tree_sitter"));
-    test_mod.addImport("graphz", graphz.module("graphz"));
-    test_mod.addImport("tree_sitter", tree_sitter.module("tree_sitter"));
-    test_mod.addImport("tst", mod);
+    tree_sitter_wit.addImport("graphz", graphz.module("graphz"));
+    tree_sitter_wit.addImport("tree_sitter", tree_sitter.module("tree_sitter"));
+    tree_sitter_wit.addImport("tst", mod);
 
     // Bundle tree-sitter-wit grammar.
     //
     // > [!NOTE]
     // > Check if tree-sitter-wit repo exists before adding grammar. This avoids failure of the
     // > build process when the this build function is run in other projects.
-    if (fileExists("./tree-sitter-wit")) addGrammar(b, test_mod, ".", "", "wit");
+    if (fileExists("./tree-sitter-wit")) addGrammar(b, tree_sitter_wit, ".", "", "wit");
 
     const mod_tests = b.addTest(.{ .root_module = mod });
     const run_mod_tests = b.addRunArtifact(mod_tests);
-    const test_mod_tests = b.addTest(.{ .root_module = test_mod });
-    const run_test_mod_tests = b.addRunArtifact(test_mod_tests);
+    const tree_sitter_wit_tests = b.addTest(.{ .root_module = tree_sitter_wit });
+    const run_tree_sitter_wit_tests = b.addRunArtifact(tree_sitter_wit_tests);
     const test_step = b.step("test", "Run tests");
+    const tree_sitter_wit_step = b.step("tree_sitter_wit", "Run tests");
     test_step.dependOn(&run_mod_tests.step);
-    test_step.dependOn(&run_test_mod_tests.step);
+    tree_sitter_wit_step.dependOn(&run_tree_sitter_wit_tests.step);
 }
 
 pub fn addGrammar(

@@ -8,7 +8,7 @@ const ArrayList = std.array_list.Managed;
 const graphz = @import("graphz");
 const ts = @import("tree_sitter");
 
-pub const Node = graphz.Node(NodeData);
+pub const Node = graphz.TreeNode(NodeData);
 
 pub const NodeData = struct {
     kind: []const u8,
@@ -17,15 +17,13 @@ pub const NodeData = struct {
 };
 
 pub fn init(arena: mem.Allocator, source: []const u8, ts_node: *const ts.Node, parent: ?*Node) !Node {
-    var children = ArrayList(*Node).init(arena);
-
     const tst_node = try arena.create(Node);
     const data = NodeData{
         .kind = ts_node.kind(),
         .text = getTsNodeText(source, ts_node),
         .is_named = ts_node.isNamed(),
     };
-    tst_node.* = try graphz.TreeNode(NodeData).init(arena, data, parent);
+    tst_node.* = try Node.init(arena, data, parent);
 
     var cursor = ts_node.tree.walk();
     defer cursor.destroy();
@@ -34,7 +32,7 @@ pub fn init(arena: mem.Allocator, source: []const u8, ts_node: *const ts.Node, p
     for (ts_children) |*child| {
         const child_node = try arena.create(Node);
         child_node.* = try init(arena, source, child, tst_node);
-        try children.append(child_node);
+        try tst_node.interface.neighbors.append(&child_node.interface);
     }
 
     return tst_node.*;
