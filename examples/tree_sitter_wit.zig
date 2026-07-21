@@ -29,5 +29,5 @@ test "tree_witter_wit" {
     defer arena.deinit();
     const tst_node = try tst.parse(arena.allocator(), tree_sitter_wit, source);
     try testing.expectEqualStrings("source_file", tst_node.data().kind);
-    debug.print("Done!\n", .{});
+    try testing.expectEqualStrings(source, tst_node.data().text);
 }
