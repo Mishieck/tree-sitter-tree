@@ -8,7 +8,7 @@ const ArrayList = std.array_list.Managed;
 const graphz = @import("graphz");
 const ts = @import("tree_sitter");
 
-pub const Node = graphz.TreeNode(NodeData);
+pub const Node = graphz.tree.Node(NodeData);
 
 pub const NodeData = struct {
     kind: []const u8,
