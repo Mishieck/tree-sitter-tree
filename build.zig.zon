@@ -9,8 +9,8 @@
             .hash = "tree_sitter-0.25.0-8heIf02aAQDgSIlCzKquUdd5anDT-IqrvMEHEbbRNkhI",
         },
         .graphz = .{
-            .url = "git+https://github.com/mishieck/graphz#0d35efca23a3d56c3988bf2f2621bfb3e9b122c0",
-            .hash = "graphz-0.6.0-o5HJo0R-AADhGWAwzD6QDyHfUEd2I5mZXBoKVr5wvk85",
+            .url = "git+https://github.com/mishieck/graphz#29e3e2b4120f54a0c2cc4b823364dfdfa2e51223",
+            .hash = "graphz-0.7.0-o5HJo_eNAAAxjfsT3u6KlH0I_RFjC8gn2jvN1TmywOJb",
         },
     },
     .paths = .{
