@@ -1,6 +1,6 @@
 .{
     .name = .tree_sitter_tree,
-    .version = "0.4.0",
+    .version = "0.4.1",
     .fingerprint = 0x6041922b6f51e06c,
     .minimum_zig_version = "0.15.1",
     .dependencies = .{
@@ -9,8 +9,8 @@
             .hash = "tree_sitter-0.25.0-8heIf02aAQDgSIlCzKquUdd5anDT-IqrvMEHEbbRNkhI",
         },
         .graphz = .{
-            .url = "git+https://github.com/mishieck/graphz#11ad200ff87c8898ec66a961fac8c6bc59df30c4",
-            .hash = "graphz-0.8.0-o5HJo3iVAAAuYs7jXGjiuVXfgSSNViiRDH1bFqaINHJO",
+            .url = "git+https://github.com/mishieck/graphz#c0402726af17236c71d268b7f406c077e348951f",
+            .hash = "graphz-0.8.1-o5HJo-iXAACcmpjG39CNrMpYhvW6atBiN1fvAIO80nYj",
         },
     },
     .paths = .{
