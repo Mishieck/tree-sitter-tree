@@ -4,13 +4,13 @@
     .fingerprint = 0x6041922b6f51e06c,
     .minimum_zig_version = "0.15.1",
     .dependencies = .{
-        .tree_sitter = .{
-            .url = "git+https://github.com/mishieck/zig-tree-sitter-bindings#39fb7006b1e26bb39fe88904dd1f8e922c3b6c4c",
-            .hash = "tree_sitter-0.25.0-8heIf02aAQDgSIlCzKquUdd5anDT-IqrvMEHEbbRNkhI",
-        },
         .graphz = .{
             .url = "git+https://github.com/mishieck/graphz#c0402726af17236c71d268b7f406c077e348951f",
             .hash = "graphz-0.8.1-o5HJo-iXAACcmpjG39CNrMpYhvW6atBiN1fvAIO80nYj",
+        },
+        .tree_sitter = .{
+            .url = "git+https://github.com/mishieck/zig-tree-sitter#39fb7006b1e26bb39fe88904dd1f8e922c3b6c4c",
+            .hash = "tree_sitter-0.25.0-8heIf02aAQDgSIlCzKquUdd5anDT-IqrvMEHEbbRNkhI",
         },
     },
     .paths = .{
