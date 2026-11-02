@@ -13,6 +13,7 @@ pub const Node = graphz.tree.Node(NodeData);
 pub const NodeData = struct {
     kind: []const u8,
     text: []const u8,
+    field_name: []const u8,
     is_named: bool,
 };
 
@@ -21,6 +22,7 @@ pub fn init(arena: mem.Allocator, source: []const u8, ts_node: *const ts.Node, p
     const data = NodeData{
         .kind = ts_node.kind(),
         .text = getTsNodeText(source, ts_node),
+        .field_name = "",
         .is_named = ts_node.isNamed(),
     };
     tst_node.* = try Node.init(arena, data, parent);
@@ -29,9 +31,10 @@ pub fn init(arena: mem.Allocator, source: []const u8, ts_node: *const ts.Node, p
     defer cursor.destroy();
     errdefer cursor.destroy();
     const ts_children = try ts_node.children(&cursor, arena);
-    for (ts_children) |*child| {
+    for (ts_children, 0..ts_children.len) |*child, i| {
         const child_node = try arena.create(Node);
         child_node.* = try init(arena, source, child, tst_node);
+        child_node.interface.data.field_name = ts_node.fieldNameForChild(@truncate(i)) orelse "";
         try tst_node.interface.neighbors.append(&child_node.interface);
     }
 
